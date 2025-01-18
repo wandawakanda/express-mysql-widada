@@ -6,6 +6,7 @@ const v = new Validator();
 const { Product } = require("../models");
 
 router.post("/", async (req, res, next) => {
+  //add a new record of product
   const schema = {
     name: "string",
     brand: "string",
