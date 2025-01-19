@@ -5,13 +5,26 @@ const v = new Validator();
 
 const { Product } = require("../models");
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   //get all products
   const products = await Product.findAll();
   return res.json(products);
 });
 
-router.post("/", async (req, res, next) => {
+router.get("/:id", async (req, res) => {
+  //get a single product
+  const id = req.params.id;
+  const product = await Product.findByPk(id);
+  if (!product) {
+    return res.status(404).json({
+      status: "error",
+      message: "Product not found",
+    });
+  }
+  return res.json(product || {});
+});
+
+router.post("/", async (req, res) => {
   //add a new record of product
   const schema = {
     name: "string",
