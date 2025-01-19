@@ -5,6 +5,12 @@ const v = new Validator();
 
 const { Product } = require("../models");
 
+router.get("/", async (req, res, next) => {
+  //get all products
+  const products = await Product.findAll();
+  return res.json(products);
+});
+
 router.post("/", async (req, res, next) => {
   //add a new record of product
   const schema = {
