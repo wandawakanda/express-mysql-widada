@@ -85,4 +85,21 @@ router.put("/:id", async (req, res) => {
   //res.send("ok");
 });
 
+router.delete("/:id", async (req, res) => {
+  //delete a record of product
+  const id = req.params.id;
+  const product = await Product.findByPk(id);
+  if (!product) {
+    return res.status(404).json({
+      status: "error",
+      message: "Product not found",
+    });
+  }
+  await product.destroy();
+  return res.json({
+    message: "Product deleted",
+  });
+  //res.send("ok");
+});
+
 module.exports = router;
